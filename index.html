@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="omelette-owns-print">
+<title>שיעור ראשון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: #f5ead8;
+  --color-surface: #ebddc5;
+  --color-text: #201e1d;
+  --color-accent: #c67139;
+  --color-accent-2: #7a8a5e;
+  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+  --color-neutral-100: #f9f4ed; --color-neutral-600: #82796a; --color-neutral-900: #2e2b25;
+  --color-accent-100: #fff2eb; --color-accent-300: #ffc6a5; --color-accent-600: #b2622d; --color-accent-700: #8c491a;
+  --color-accent-2-500: #8fa073; --color-accent-2-600: #728157; --color-accent-2-700: #56633f; --color-accent-2-800: #3d472b;
+  --font-heading: 'Suez One', "Segoe UI", Arial, serif;
+  --font-heading-weight: 400;
+  --font-body: 'Rubik', "Segoe UI", Arial, sans-serif;
+  --radius-lg: 28px;
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
+  --type-display: 142px; --type-title: 80px; --type-subtitle: 48px;
+  --type-body: 40px; --type-small: 34px; --type-kicker: 27px;
+  --pad-x: 144px; --pad-top: 108px; --pad-bottom: 108px; --baseline: 60px;
+  --page-foot-note: "שיעור ראשון";
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #15130f; overflow: hidden; }
+body { font-family: var(--font-body); }
+#stage { position: absolute; top: 50%; left: 50%; width: 1920px; height: 1080px; transform-origin: center center; }
+.slide { position: absolute; inset: 0; display: none; }
+.slide.active { display: flex; }
+
+.slide {
+  flex-direction: column;
+  background: var(--color-bg); color: var(--color-text);
+  text-wrap: pretty;
+  padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+}
+.centered { text-align: center; align-items: center; }
+.slide-title {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: var(--type-title); line-height: calc(1.5 * var(--baseline)); margin: 0;
+}
+.pin-bottom { position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: var(--pad-bottom); }
+.meta { display: flex; align-items: baseline; gap: 18px; font-size: var(--type-kicker); color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+
+#stage { counter-reset: page; }
+.slide { counter-increment: page; }
+.page-foot {
+  position: absolute; left: var(--pad-x); bottom: 34px;
+  font-size: var(--type-kicker); letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--color-text) 62%, transparent);
+  background: var(--color-surface); border-radius: 999px;
+  padding: 8px 18px;
+}
+.page-foot::before { content: counter(page) " · "; }
+.page-foot::after { content: var(--page-foot-note); }
+
+.cover { justify-content: center; align-items: center; text-align: center; }
+.cover .rise { display: flex; flex-direction: column; align-items: center; gap: 42px; }
+.cover .meta { justify-content: center; }
+.display {
+  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
+  font-size: var(--type-display); line-height: calc(2.5 * var(--baseline)); margin: 0;
+}
+.cover-sub { font-size: var(--type-subtitle); line-height: var(--baseline); max-width: 38ch; margin: 0; text-wrap: balance; }
+
+.toc { display: flex; flex-direction: column; max-width: 1040px; font-size: var(--type-subtitle); }
+.centered .toc { align-items: center; }
+.toc-row { display: flex; align-items: baseline; justify-content: center; gap: 24px; }
+.toc-row + .toc-row { margin-top: calc(1.8 * var(--baseline)); }
+.toc-num { font-size: 64px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); color: var(--color-accent); }
+.toc-topic { display: flex; flex-direction: column; gap: 6px; }
+.toc-note { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.toc-emphasis { color: var(--color-accent-700); font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+ul.bullets-vivid li::before { content: counter(bv); position: static; counter-increment: bv; width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 28px; color: var(--color-bg); }
+.bullets-vivid { counter-reset: bv; }
+.bullets-vivid li { display: flex; align-items: center; gap: 24px; padding-right: 0; }
+.bullets-vivid li:nth-child(1)::before { background: var(--color-accent); }
+.bullets-vivid li:nth-child(2)::before { background: var(--color-accent-2); }
+.bullets-vivid li:nth-child(3)::before { background: var(--color-accent-600); }
+.bullets-vivid li:nth-child(4)::before { background: var(--color-accent-2-600); }
+.bullets-vivid li:nth-child(5)::before { background: var(--color-accent-700); }
+.bullets-vivid li { opacity: 0; animation: bvIn 0.5s ease forwards; }
+.bullets-vivid li:nth-child(1) { animation-delay: 0.1s; }
+.bullets-vivid li:nth-child(2) { animation-delay: 0.35s; }
+.bullets-vivid li:nth-child(3) { animation-delay: 0.6s; }
+.bullets-vivid li:nth-child(4) { animation-delay: 0.85s; }
+.bullets-vivid li:nth-child(5) { animation-delay: 1.1s; }
+@keyframes bvIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.divider { justify-content: center; background: var(--color-accent-2-800); color: var(--color-bg); overflow: hidden; }
+.divider::before { content: ""; position: absolute; left: -320px; bottom: -420px; width: 1040px; height: 1040px; border-radius: 999px; background: var(--color-accent-2-700); }
+.divider { align-items: center; text-align: center; }
+.divider .rise { display: flex; flex-direction: column; align-items: center; gap: 54px; }
+.ghost-num { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 280px; line-height: 0.9; color: var(--color-accent-2-600); }
+
+.content { padding-top: calc(3 * var(--baseline)); }
+.rail-slide { padding-top: var(--pad-top); }
+.content > .bullets { margin-top: calc(2 * var(--baseline)); }
+.agenda-slide { justify-content: center; gap: calc(2 * var(--baseline)); }
+.content > .table { margin-top: calc(2.5 * var(--baseline)); }
+.content > figure { margin-top: calc(1 * var(--baseline)); }
+.content > .chart-caption { margin-top: calc(1 * var(--baseline)); }
+.content > .team-grid { margin-top: calc(2 * var(--baseline)); }
+.bullets { display: flex; flex-direction: column; max-width: 1200px; margin: 0; padding: 0; list-style: none; font-size: var(--type-body); }
+.bullets li { position: relative; line-height: var(--baseline); padding-right: 44px; }
+.bullets li + li { margin-top: calc(2 * var(--baseline)); }
+.bullets li::before { content: ""; position: absolute; right: 0; top: calc(50% - 7px); width: 14px; height: 14px; border-radius: 999px; background: var(--color-accent); }
+
+.cols { display: grid; gap: calc(2 * var(--baseline)) 96px; margin-top: calc(2 * var(--baseline)); grid-template-columns: 1fr 1fr; }
+.cols p { font-size: var(--type-small); line-height: var(--baseline); margin: 0; }
+.cols h3 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); margin: 0 0 var(--baseline); }
+
+.cols-3 { display: grid; grid-template-columns: 1fr 1fr   fr; gap: 80px; margin-top: calc(2 * var(--baseline)); align-items: end; }
+.cols-3.centered-primary { grid-template-columns: 1fr 1.25fr 1fr; }
+.cols-3.two-primary .col-secondary h3 { font-size: var(--type-subtitle); color: var(--color-accent-700); }
+.cols-3.two-primary .col-secondary ul.bullets { font-size: var(--type-small); }
+.cols-3.two-primary .col-secondary ul.bullets li::before { width: 14px; height: 14px; top: calc(50% - 7px); }
+.cols-3.two-primary .col-secondary ul.bullets li + li { margin-top: calc(2 * var(--baseline)); }
+.cols-3.two-primary .col-primary h3 { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+.cols-3.two-primary .col-primary ul.bullets { font-size: 28px; }
+.cols-3.two-primary .col-primary ul.bullets li::before { width: 10px; height: 10px; top: calc(50% - 5px); }
+.cols-3.two-primary .col-primary ul.bullets li + li { margin-top: var(--baseline); }
+
+.recap-grid { display: flex; flex-direction: column; gap: calc(1.2 * var(--baseline)); margin-top: var(--baseline); max-width: 1500px; }
+.recap-grid.compact { gap: 18px; margin-top: 60px; }
+.recap-grid.compact .recap-row .rail-item { width: 104px; height: 109px; }
+.recap-grid.compact .recap-row .rail-item .rail-item-label { font-size: 18px; }
+.recap-grid.compact .recap-row p { font-size: var(--type-body); }
+.recap-row { display: flex; align-items: center; gap: 48px; }
+.recap-row .rail-item { flex-shrink: 0; width: 190px; height: 106px; }
+.recap-row .rail-item .rail-item-label { font-size: 22px; }
+.recap-row p { margin: 0; font-size: var(--type-body); line-height: var(--baseline); flex: 1; }
+.cols-3 .col-primary h3 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-subtitle); color: var(--color-accent-700); margin: 0 0 var(--baseline); }
+.cols-3 .col-primary ul.bullets { font-size: var(--type-small); }
+.cols-3 .col-secondary h3 { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0 0 var(--baseline); }
+.cols-3 .col-secondary ul.bullets { font-size: 28px; }
+.cols-3 .col-secondary ul.bullets li { padding-right: 32px; }
+.cols-3 .col-secondary ul.bullets li::before { width: 10px; height: 10px; top: calc(50% - 5px); }
+.cols-3 .col-secondary ul.bullets li + li { margin-top: var(--baseline); }
+.cols-3 { grid-template-columns: 1.15fr 0.9fr 0.95fr; gap: 110px; }
+.cols-3 .col-primary { padding-left: 20px; }
+
+.hero { justify-content: center; align-items: center; text-align: center; gap: 42px; }
+.hero-num { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 300px; line-height: 1; margin: 0; color: var(--color-accent); }
+.hero-caption { font-size: var(--type-small); line-height: var(--baseline); max-width: 44ch; margin: 0; text-wrap: balance; }
+
+.quote { justify-content: center; align-items: center; text-align: center; gap: 54px; }
+.quote .rise { display: flex; flex-direction: column; align-items: center; gap: 54px; }
+.quote blockquote { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 66px; line-height: calc(1.5 * var(--baseline)); max-width: 28ch; margin: 0; }
+.quote figcaption { font-size: var(--type-small); margin: 0; }
+
+.table { width: 100%; border-collapse: collapse; max-width: 1760px; font-size: 34px; }
+.table th { text-align: right; font-size: var(--type-small); letter-spacing: 0.02em; color: color-mix(in srgb, var(--color-text) 75%, transparent); border-bottom: 1px solid var(--color-divider); padding: 24px 28px; }
+.table td { border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent); padding: 36px 28px; }
+.table th:first-child, .table td:first-child { padding-right: 0; }
+.table th:last-child, .table td:last-child { padding-left: 0; }
+
+.chart { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font-body); font-size: 32px; fill: color-mix(in srgb, var(--color-text) 72%, transparent); }
+.chart .grid, .chart .axis { stroke: var(--color-divider); stroke-width: 1; }
+.chart .bar { fill: var(--color-neutral-600); }
+.chart .bar-hi { fill: var(--color-accent); }
+.chart .bar, .chart .bar-hi { rx: var(--radius-lg); }
+.chart-caption { font-size: var(--type-small); line-height: var(--baseline); max-width: 82ch; margin: 0; }
+
+.bleed-figure { position: absolute; inset: 0; margin: 0; clip-path: path("M0 0 H1920 V620 C1680 700 1460 560 1200 640 C940 720 700 580 460 650 C280 702 120 640 0 680 Z"); }
+.bleed-copy { position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: var(--pad-bottom); text-align: center; pointer-events: none; }
+.bleed-copy .note { font-size: var(--type-small); line-height: var(--baseline); max-width: 58ch; margin: calc(2 * var(--baseline)) auto 0; }
+
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 72px; max-width: 1600px; }
+.team-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+.team-avatar { width: 220px; height: 220px; border-radius: 999px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.team-name { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); margin: 0; }
+.team-role { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0; }
+
+.code-block { background: var(--color-neutral-900); color: var(--color-neutral-100); border-radius: var(--radius-lg); padding: 56px 64px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: var(--type-body); line-height: var(--baseline); max-width: 1600px; box-shadow: var(--shadow-md); white-space: pre-wrap; }
+.code-block .cmt { color: #ccdbb2; }
+.content > .code-block { margin-top: calc(2 * var(--baseline)); }
+
+.half-bleed { padding-top: calc(2 * var(--baseline)); }
+.half-bleed > .slide-title { max-width: 640px; margin-left: 960px; }
+.half-bleed .bullets { margin-top: calc(3 * var(--baseline)); max-width: 640px; margin-left: 960px; }
+.half-bleed-figure { position: absolute; inset: 0 auto 0 0; width: 1040px; margin: 0; clip-path: path("M0 0 H930 C1010 140 870 320 950 500 C1030 680 890 860 970 1080 H0 Z"); }
+
+.prompt { justify-content: center; align-items: center; text-align: center; gap: 42px; }
+.prompt-kicker { font-size: var(--type-kicker); letter-spacing: 0.08em; color: var(--color-accent-700); margin: 0; }
+.prompt-question { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-title); line-height: calc(1.5 * var(--baseline)); max-width: 20ch; margin: 0; }
+
+.interactive-slide { justify-content: center; align-items: center; text-align: center; gap: calc(2 * var(--baseline)); }
+.reveal-question, .quiz-question, .widget-caption { font-size: var(--type-subtitle); line-height: var(--baseline); max-width: 1200px; margin: 0; }
+.reveal-answer { font-size: var(--type-body); line-height: var(--baseline); max-width: 1200px; margin: 0; color: var(--color-accent-700); }
+.reveal-answer[hidden], .quiz-feedback[hidden] { display: none; }
+.quiz-options { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+.quiz-opt.correct { background: var(--color-accent-2-500) !important; color: var(--color-bg) !important; border-color: var(--color-accent-2-500) !important; }
+.quiz-opt.incorrect { background: var(--color-accent-700) !important; color: var(--color-bg) !important; border-color: var(--color-accent-700) !important; }
+.quiz-feedback { font-size: var(--type-body); font-family: var(--font-heading); font-weight: var(--font-heading-weight); margin: 0; color: var(--color-accent-700); }
+.code-line { transition: color 0.2s ease; }
+.code-line.active { color: var(--color-accent-300); font-weight: 600; }
+.code-step-caption { font-size: var(--type-small); line-height: var(--baseline); max-width: 900px; margin: 0; color: color-mix(in srgb, var(--color-text) 72%, transparent); }
+.step-controls { display: flex; align-items: center; gap: 32px; }
+.step-indicator { font-size: var(--type-kicker); min-width: 80px; text-align: center; }
+.counter-widget { display: flex; align-items: center; gap: 40px; }
+.counter-value { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-title); min-width: 160px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: 1px solid transparent; border-radius: 999px; background: transparent; color: var(--color-text); font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-secondary { border-color: var(--color-divider); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.interactive-slide .btn { font-size: var(--type-small); padding: 24px 48px; }
+.interactive-slide .btn.btn-icon { padding: 0; width: 88px; height: 88px; font-size: 36px; }
+
+.img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--color-surface); color: color-mix(in srgb, var(--color-text) 55%, transparent); font-size: 28px; text-align: center; }
+
+.nav-btn { direction: ltr; position: fixed; top: 50%; transform: translateY(-50%); width: 64px; height: 64px; border-radius: 999px; border: none; background: var(--color-surface); color: var(--color-text); font-size: 30px; cursor: pointer; box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; z-index: 10; font-family: var(--font-body); }
+.nav-btn:hover { background: var(--color-accent); color: var(--color-bg); }
+.nav-prev { left: 24px; }
+.nav-next { right: 24px; }
+.slide-counter { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); font-family: var(--font-body); font-size: 15px; color: var(--color-text); background: var(--color-surface); padding: 6px 18px; border-radius: 999px; z-index: 10; }
+
+.term-slide { justify-content: center; align-items: center; text-align: center; gap: 36px; }
+.term-word { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 150px; line-height: 1; margin: 0; }
+
+.code-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 96px; margin-top: calc(2 * var(--baseline)); }
+.compare-label { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); margin: 0 0 20px; }
+.compare-label.bad { color: var(--color-accent-700); }
+.compare-label.good { color: var(--color-accent-2-700); }
+.code-block.small { font-size: 38px; line-height: 48px; padding: 32px 44px; }
+
+.terminal .prompt-sign { color: var(--color-accent-300); margin-right: 12px; }
+
+.flow { display: flex; align-items: center; gap: 24px; margin-top: calc(2 * var(--baseline)); flex-wrap: wrap; }
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 16px; background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px 40px; box-shadow: var(--shadow-sm); min-width: 220px; text-align: center; font-size: var(--type-small); }
+.flow-num { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); color: var(--color-accent); }
+.flow-arrow { font-size: 36px; color: color-mix(in srgb, var(--color-text) 40%, transparent); }
+
+.roadmap { display: flex; align-items: center; gap: 24px; margin-top: calc(2 * var(--baseline)); width: 100%; max-width: 1600px; }
+.road-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 68%, transparent); }
+.road-dot { width: 22px; height: 22px; border-radius: 999px; background: var(--color-neutral-100); border: 2px solid var(--color-divider); }
+.road-step.done .road-dot { background: var(--color-accent-2-500); border-color: var(--color-accent-2-500); }
+.road-step.done { color: var(--color-text); }
+.road-step.current .road-dot { background: var(--color-accent); border-color: var(--color-accent); width: 28px; height: 28px; }
+.road-step.current { color: var(--color-text); font-weight: 600; }
+
+.bullets.recap li::before { background: var(--color-accent-2-500); }
+
+.debug-fix { max-width: 1200px; }
+.debug-fix[hidden] { display: none; }
+
+.trace-wrap { display: flex; gap: 64px; align-items: flex-start; margin-top: calc(2 * var(--baseline)); width: 100%; max-width: 1700px; }
+.trace-code { flex: 1.2; }
+.trace-table { flex: 1; font-size: 30px; }
+
+.task-instructions { max-width: 1600px; }
+.content > .task-instructions { margin-top: calc(2 * var(--baseline)); }
+.content > .task-instructions.compact { margin-top: var(--baseline); }
+.task-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); margin: 0 0 12px; }
+.task-subtitle { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 65%, transparent); margin: 12px 0 16px; }
+.task-text { font-size: var(--type-small); line-height: var(--baseline); margin: 0; }
+.task-hint-btn { margin-top: calc(1 * var(--baseline)); padding: 24px 48px; font-size: var(--type-small); align-self: flex-start; }
+.task-hint { font-size: var(--type-small); line-height: var(--baseline); margin: calc(0.5 * var(--baseline)) 0 0; color: var(--color-accent-700); }
+.task-hint[hidden] { display: none; }
+.task-title.compact { margin-bottom: 4px; }
+
+.rail-layout { display: grid; grid-template-columns: 1fr 260px; gap: 60px; margin-top: calc(2 * var(--baseline)); align-items: stretch; height: 100%; }
+.rail-main { display: flex; flex-direction: column; align-items: center; text-align: center; gap: calc(1.2 * var(--baseline)); max-width: 1300px; margin: 0 auto; justify-content: center; }
+.rail-phrase { font-size: var(--type-subtitle); line-height: var(--baseline); margin: 0; text-wrap: pretty; }
+.rail-reveal { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.rail-reveal[hidden] { display: none; }
+.rail-icon { width: 220px; height: 230px; cursor: pointer; position: relative; }
+.rail-icon svg { width: 100%; height: 100%; display: block; position: absolute; inset: 0; }
+.rail-icon-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 34px; font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.2; color: var(--color-accent-100); }
+.rail-translation { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 65%, transparent); margin: 0; }
+
+.rail-strip { border-right: 2px dashed var(--color-divider); padding-right: 24px; display: flex; flex-direction: column; gap: 14px; align-items: center; height: 100%; justify-content: center; }
+.rail-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.rail-item svg { width: 88px; height: auto; display: block; }
+.rail-item .rail-item-label { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 16px; text-align: center; max-width: 130px; }
+.rail-item-legend { font-size: 12px; color: color-mix(in srgb, var(--color-text) 60%, transparent); text-align: center; margin: -10px 0 0; font-family: var(--font-body); font-weight: 400; }
+.rail-reveal-btn, .rail-add-btn { font-size: var(--type-small); padding: 24px 48px; }
+.rail-reveal-btn[hidden] { display: none; }
+.rail-reveal-btn { background: var(--btn-color, var(--color-accent)); }
+.rail-reveal-btn:hover { background: var(--btn-color, var(--color-accent)); filter: brightness(0.9); }
+
+.recap-row .rail-item { width: 108px; height: 113px; position: relative; flex-shrink: 0; }
+.recap-row .rail-item svg { width: 100%; height: 100%; display: block; }
+.recap-row .rail-item .rail-item-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 16px; color: var(--color-accent-100); font-size: 16px; line-height: 1.2; }
+
+.reveal-step[hidden] { display: none !important; }
+.click-reveal { cursor: pointer; }
+.rail-slide .rise { align-items: center; }
+.task-subtitle.compact { margin-bottom: 8px; }
+.code-block.compact { padding: 40px 56px; }
+.content > .code-block.compact { margin-top: calc(2 * var(--baseline)); }
+.code-task-split { display: grid; grid-template-columns: 1fr 1.15fr; gap: 96px; align-items: start; margin-top: calc(3 * var(--baseline)); max-width: 1760px; }
+.content:has(.code-task-split.full-program) { padding-top: calc(1.6 * var(--baseline)); }
+.code-task-split.full-program { grid-template-columns: 1fr 1.35fr; align-items: stretch; margin-top: calc(2.2 * var(--baseline)); }
+.code-block.full-program { font-size: 24px; line-height: 1.3; padding: 24px 32px; max-width: none; cursor: zoom-in; }
+.code-block.full-program.zoomed { position: fixed; inset: 0; margin: auto; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.7); z-index: 60; cursor: zoom-out; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+.zoom-overlay { display: none; position: fixed; inset: 0; background: rgba(21,19,15,0.7); z-index: 50; }
+.zoom-overlay.active { display: block; }
+.zoom-hint { font-size: 20px; color: color-mix(in srgb, var(--color-neutral-100) 60%, transparent); margin: 16px 0 0; text-align: center; font-family: var(--font-body); }
+body.zoom-active .nav-btn { pointer-events: none; }
+
+@media print {
+  @page { size: 20in 11.25in; margin: 0; }
+  body { background: #fff; overflow: visible; }
+  .stage-wrap, #stage { position: static; transform: none !important; width: 1920px; height: auto; }
+  .slide {
+    position: relative;
+    display: flex !important;
+    width: 1920px;
+    height: 1080px;
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .nav-btn, .slide-counter { display: none !important; }
+}
+
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-600); }
+
+.scatter-board { position: relative; width: 100%; max-width: 1700px; height: 620px; margin-top: calc(2 * var(--baseline)); }
+.scatter-item { position: absolute; min-width: 220px; padding: 28px 36px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm); font-size: var(--type-small); text-align: center; cursor: pointer; user-select: none; transition: background 0.2s ease; }
+.scatter-item .scatter-text { opacity: 0; transition: opacity 0.2s ease; }
+.scatter-item:hover .scatter-text { opacity: 0.18; }
+.scatter-item.revealed { background: var(--color-accent-2-200); }
+.scatter-item.revealed .scatter-text { opacity: 1; }
+
+.instructions { margin-top: calc(2 * var(--baseline)); max-width: 1300px; text-align: center; }
+.instructions-lead { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); margin: 0 0 20px; }
+.instructions-text { margin: 0; font-size: var(--type-small); line-height: var(--baseline); }
+
+.link-caption { font-size: var(--type-small); line-height: var(--baseline); max-width: 900px; margin: calc(2 * var(--baseline)) auto 0; }
+.link-cta { margin-top: calc(2 * var(--baseline)); font-size: var(--type-body); padding: 28px 56px; text-decoration: none; }
+
+.vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 80px; max-width: 1700px; margin-top: calc(2 * var(--baseline)); }
+.vocab-item { display: flex; flex-direction: column; gap: 10px; }
+.vocab-term { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: var(--type-body); color: var(--color-accent-700); margin: 0; }
+.vocab-def { font-size: var(--type-small); line-height: var(--baseline); margin: 0; }
+
+.flip-card { width: 900px; height: 480px; margin-top: calc(2 * var(--baseline)); perspective: 2000px; cursor: pointer; position: relative; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.5s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-md); padding: 48px; font-size: var(--type-subtitle); font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+.flip-face-back { transform: rotateY(180deg); background: var(--color-accent-2-200); font-family: var(--font-body); font-size: var(--type-small); font-weight: 400; }
+.flip-hint { font-size: var(--type-kicker); color: color-mix(in srgb, var(--color-text) 50%, transparent); }
+
+.diagram-board { position: relative; width: 100%; max-width: 1600px; height: 560px; margin-top: calc(2 * var(--baseline)); }
+.diagram-part { position: absolute; opacity: 0; transition: opacity 0.4s ease; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.diagram-part.shown { opacity: 1; }
+.diagram-box { padding: 24px 40px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-sm); font-size: var(--type-small); font-family: var(--font-heading); font-weight: var(--font-heading-weight); }
+.diagram-part.highlight .diagram-box { background: var(--color-accent-2-200); }
+.diagram-label { font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 55%, transparent); max-width: 320px; text-align: center; }
+
+.picker-display { width: 700px; height: 220px; border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; margin-top: calc(2 * var(--baseline)); }
+.picker-value { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 110px; color: var(--color-accent-700); }
+.picker-value.small { font-size: 64px; }
+.picker-caption { font-size: var(--type-kicker); color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-top: calc(1 * var(--baseline)); }
+
+.range-controls { display: flex; align-items: center; gap: 20px; font-size: var(--type-small); }
+.range-controls input { width: 110px; text-align: center; font-size: var(--type-small); font-family: var(--font-body); padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--color-divider); background: var(--color-bg); color: var(--color-text); }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="slide active cover" data-label="שער">
+  <div class="rise"><h1 class="display">מדעי המחשב ב</h1><p class="cover-sub">מבני נתונים &nbsp;|&nbsp; תכנות מונחה עצמים</p></div>
+  <div class="pin-bottom meta"><span>חגית ידוב</span><span>·</span><span>2026</span></div>
+</section>
+
+<section class="slide agenda-slide centered" data-label="סדר יום">
+  <h2 class="slide-title">מה עושים היום?</h2>
+  <div class="toc rise">
+    <div class="toc-row"><span class="toc-num">01</span><div class="toc-topic"><span>היכרות</span></div></div>
+    <div class="toc-row"><span class="toc-num">02</span><div class="toc-topic"><span>אתגרים בקוד</span><span class="toc-note">עם תוצר מעניין בסוף</span></div></div>
+    <div class="toc-row"><span class="toc-num">03</span><div class="toc-topic"><span>תוכנית הלימודים לבגרות</span></div></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="בואו נכיר">
+  <h2 class="slide-title">בואו נכיר</h2>
+  <ul class="bullets bullets-vivid rise">
+    <li>משהו שאני אוהב/ת במדעי המחשב</li>
+    <li>משהו שאני לא אוהב/ת במדעי המחשב</li>
+    <li>הנושא שבחרתי בפרויקט תב״א</li>
+  </ul>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content click-reveal" data-label="רקע המורה">
+  <h2 class="slide-title">קצת עלי</h2>
+  <div class="cols-3 rise">
+    <div class="col-primary">
+      <h3 style="font-size: var(--type-small); color: color-mix(in srgb, var(--color-text) 70%, transparent); margin: 0 0 var(--baseline);">תחומים בהם עבדתי</h3>
+      <ul class="bullets" style="font-size: var(--type-small);">
+        <li style="margin-top: 0px;">למידת מכונה ובינה מלאכותית</li>
+        <li style="margin-top: 20px;">פיתוח אפליקציות</li>
+        <li style="margin-top: 20px;">יישומי אינטרנט</li>
+        <li style="margin-top: 20px;">מערכות משולבות חומרה-תוכנה</li>
+        <li style="margin-top: 20px;">פיתוחים בתחום רפואי</li>
+      </ul>
+    </div>
+    <div class="col-secondary reveal-step" hidden>
+      <h3>אוהבת</h3>
+      <ul class="bullets">
+        <li style="margin-top: 0;">בנייה ויצירה</li>
+        <li style="margin-top: 20px;">חשיבה לוגית</li>
+        <li style="margin-top: 20px;">תחושת סיפוק כשהתוכנה עובדת</li>
+      </ul>
+    </div>
+    <div class="col-secondary reveal-step" hidden>
+      <h3>פחות</h3>
+      <ul class="bullets">
+        <li style="margin-top: 0;">התקנות</li>
+        <li style="margin-top: 20px;">בעיות טכניות</li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide divider" data-label="פרק">
+  <div class="rise"><div class="ghost-num">02</div><h2 class="slide-title">אתגרים בקוד</h2></div>
+</section>
+
+<section class="slide content" data-label="שרשרת חוליות - חלק א">
+  <h2 class="slide-title">הוספת צבעים למערך</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק א&#39;</p>
+      <p class="task-text">נתון מערך של צבעים colors</p>
+      <p class="task-text">הוסיפו למערך 2 צבעים לבחירתכם.</p>
+      <p class="task-text">תחשבו איך להוסיף איברים למערך.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+      string[] colors = { "Red", "Blue", "Green", "Yellow" };
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">צרו מערך חדש באורך המקורי + 2, העתיקו אליו והדפיסו את התוצאה</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="שרשרת חוליות - חלק ב">
+  <h2 class="slide-title">הוספת צבעים למערך</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק ב&#39;</p>
+      <p class="task-text">הוסיפו למערך עוד 2 צבעים לבחירתכם,</p>
+      <p class="task-text">הפעם בלי להשתמש במערך נוסף.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+      string[] colors = { "Red", "Blue", "Green", "Yellow" };
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">אי אפשר לשנות אורך של מערך לאחר שהוגדר</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content rail-slide" data-label="שרשרת חוליות - קיר וחשיפה">
+  <div class="rail-layout">
+    <div class="rail-main">
+      <p class="rail-phrase rise">מבנה המאפשר לשנות את אורכו (להוסיף ולהסיר איברים)</p>
+      <button class="btn btn-primary rise rail-reveal-btn" style="--btn-color: var(--color-accent);">?</button>
+      <div class="rail-reveal" hidden>
+        <div class="rail-icon">
+          <svg viewBox="0 0 46 48" style="transform: rotate(-6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg>
+          <span class="rail-icon-label" data-term="שרשרת חוליות">שרשרת<br>חוליות</span>
+        </div>
+        <p class="rail-translation">Linked List</p>
+    </div>
+    </div>
+    <div class="rail-strip">
+      
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="מחסנית - חלק א">
+  <h2 class="slide-title">הדפסה בסדר הפוך</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק א&#39;</p>
+      <p class="task-text">צרו מערך numbers באורך אקראי בין 10-100,</p>
+      <p class="task-text">והציבו בתוכו מספרים אקראיים.</p>
+      <p class="task-text">הדפיסו את 10 המספרים האחרונים מהסוף –אחורה.</p>
+      <p class="task-text">איך נדע מאיפה להתחיל?</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        Random rnd = new Random();
+        int length = rnd.Next(10, 101);
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">נשתמש בתכונה של המערך: numbers.Length</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="מחסנית - חלק ב">
+  <h2 class="slide-title">הדפסה בסדר הפוך</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק ב&#39;</p>
+      <p class="task-text">הדפיסו את 10 המספרים האחרונים מהסוף –אחורה,</p>
+      <p class="task-text">הפעם בלי להשתמש בתכונה Length (או במשתנה שהגדרתם)</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        Random rnd = new Random();
+        int length = rnd.Next(10, 101);
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">לא ניתן לדעת את האינדקס של האיבר האחרון, בלי לדעת את האורך</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content rail-slide" data-label="מחסנית - קיר וחשיפה">
+  <div class="rail-layout">
+    <div class="rail-main">
+      <p class="rail-phrase rise">מבנה המאפשר גישה ישירה לאיבר האחרון שהתווסף</p>
+      <button class="btn btn-primary rise rail-reveal-btn" style="--btn-color: var(--color-accent-2);">?</button>
+      <div class="rail-reveal" hidden>
+        <div class="rail-icon">
+          <svg viewBox="0 0 46 48" style="transform: rotate(4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg>
+          <span class="rail-icon-label" data-term="מחסנית">מחסנית</span>
+        </div>
+        <p class="rail-translation">Stack</p>
+    </div>
+    </div>
+    <div class="rail-strip">
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-6deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">שרשרת חוליות</span></div>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="תור - חלק א">
+  <h2 class="slide-title">מי הבא בתור</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק א&#39;</p>
+      <p class="task-text">נתון מערך busLine שבו התלמידים מחכים לאוטובוס (הראשון באינדקס 0, השני באינדקס 1 וכו&#39;).</p>
+      <p class="task-text">באוטובוס שהגיע היה מקום רק לחמשת הראשונים, כל השאר חיכו.</p>
+      <p class="task-text">בינתיים הגיעו לתחנה גם: שירה, גיא, טל.</p>
+      <p class="task-text">הכניסו אותם לתור באופן הוגן והדפיסו את התור.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        string[] busLine = { "Yossi", "Noa", "Dana", "Tom", "Roni", "Maya", "Ori", "Lior", "Adi", "Ben" };
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">צריך תחילה להזיז את התלמידים שכבר מחכים בתור</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="תור - חלק ב">
+  <h2 class="slide-title">מי הבא בתור</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק ב&#39;</p>
+      <p class="task-text">הכניסו אותם לתור באופן הוגן, מבלי להזיז את התלמידים שכבר נמצאים בתור.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        string[] busLine = { "Yossi", "Noa", "Dana", "Tom", "Roni", "Maya", "Ori", "Lior", "Adi", "Ben" };
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">מסובך לנהל את התור מבלי להזיז להתחלה.</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content rail-slide" data-label="תור - קיר וחשיפה">
+  <div class="rail-layout">
+    <div class="rail-main">
+      <p class="rail-phrase rise">מבנה המאפשר גישה ישירה לאיבר הראשון שהתווסף</p>
+      <button class="btn btn-primary rise rail-reveal-btn" style="--btn-color: var(--color-accent-700);">?</button>
+      <div class="rail-reveal" hidden>
+        <div class="rail-icon">
+          <svg viewBox="0 0 46 48" style="transform: rotate(-4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg>
+          <span class="rail-icon-label" data-term="תור">תור</span>
+        </div>
+        <p class="rail-translation">Queue</p>
+    </div>
+    </div>
+    <div class="rail-strip">
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-6deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">שרשרת חוליות</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(4deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span class="rail-item-label" style="color: var(--color-accent-2-700);">מחסנית</span></div>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="רקורסיה - חלק א">
+  <h2 class="slide-title">חישוב עצרת</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק א&#39;</p>
+      <p class="task-text">קלטו מהמשתמש מספר שלם חיובי number בין 5-10,</p>
+      <p class="task-text">חשבו והדפיסו את ערך העצרת !number</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a number: ");
+        int number = int.Parse(Console.ReadLine());
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">הכי פשוט בעזרת לולאת for</p>
+    <p class="task-text" style="margin: 8px 0 0; font-size: var(--type-kicker); color: color-mix(in srgb, var(--color-text) 65%, transparent);">תזכורת: עצרת של מספר חיובי n (מסומנת n!) היא מכפלת כל המספרים מ-1 עד n. לדוגמה: 4! = 4×3×2×1 = 24.</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="רקורסיה - חלק ב">
+  <h2 class="slide-title">חישוב עצרת</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק ב&#39;</p>
+      <p class="task-text">חשבו והדפיסו את !number מבלי להשתמש בלולאה.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a number: ");
+        int number = int.Parse(Console.ReadLine());
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">אפשר לעשות זאת!</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content rail-slide" data-label="רקורסיה - קיר וחשיפה">
+  <div class="rail-layout">
+    <div class="rail-main">
+      <p class="rail-phrase rise">פעולה שמזמנת את עצמה</p>
+      <button class="btn btn-primary rise rail-reveal-btn" style="--btn-color: var(--color-accent-2-800);">?</button>
+      <div class="rail-reveal" hidden>
+        <div class="rail-icon">
+          <svg viewBox="0 0 46 48" style="transform: rotate(6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-800)"/></svg>
+          <span class="rail-icon-label" data-term="רקורסיה">רקורסיה</span>
+        </div>
+        <p class="rail-translation">Recursion</p>
+    </div>
+    </div>
+    <div class="rail-strip">
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-6deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">שרשרת חוליות</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(4deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span class="rail-item-label" style="color: var(--color-accent-2-700);">מחסנית</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-4deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">תור</span></div>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="עצים בינאריים - חלק א">
+  <h2 class="slide-title">חיפוש מספר</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק א&#39;</p>
+      <p class="task-text">נתון מערך ממוין של 16 מספרים.</p>
+      <p class="task-text">הגרילו מספר, ובדקו האם הוא קיים במערך.</p>
+      <p class="task-text">ספרו כמה בדיקות ביצעתם, והדפיסו את התוצאה.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 3, 8, 15, 22, 29, 34, 41, 47, 53, 61, 68, 74, 79, 85, 91, 97 };
+        Random rnd = new Random();
+        int number = rnd.Next(1, 101);
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">השתמשו בלולאה וספרו את האיטרציות.</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="עצים בינאריים - חלק ב">
+  <h2 class="slide-title">חיפוש מספר</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-task-split full-program rise">
+    <div class="task-instructions">
+      <p class="task-subtitle">חלק ב&#39;</p>
+      <p class="task-text">בצעו את אותו חיפוש, אבל הפעם תוך 4 בדיקות לכל היותר.</p>
+    </div>
+    <div>
+      <div class="code-block full-program" dir="ltr">using System;
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 3, 8, 15, 22, 29, 34, 41, 47, 53, 61, 68, 74, 79, 85, 91, 97 };
+        Random rnd = new Random();
+        int number = rnd.Next(1, 101);
+    }
+}</div>
+      <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary task-hint-btn rise" style="margin-top: 4px;">רמז</button>
+  <div class="task-hint rise" hidden style="margin-top: 8px;">
+    <p class="task-title" style="margin: 0 0 8px;"></p>
+    <p class="task-text" style="margin: 0;">הרמז בנתונים עצמם</p>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content rail-slide" data-label="עצים בינאריים - קיר וחשיפה">
+  <div class="rail-layout">
+    <div class="rail-main">
+      <p class="rail-phrase rise">מבנה המאפשר לבצע חיפוש יעיל .</p>
+      <button class="btn btn-primary rise rail-reveal-btn" style="--btn-color: color-mix(in srgb, var(--color-accent) 50%, var(--color-accent-2));">?</button>
+      <div class="rail-reveal" hidden>
+        <div class="rail-icon">
+          <svg viewBox="0 0 46 48" style="transform: rotate(-3deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="color-mix(in srgb, var(--color-accent) 50%, var(--color-accent-2))"/></svg>
+          <span class="rail-icon-label" data-term="עצים בינאריים">עצים<br>בינאריים</span>
+        </div>
+        <p class="rail-translation">Binary Trees</p>
+    </div>
+    </div>
+    <div class="rail-strip">
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-6deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">שרשרת חוליות</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(4deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span class="rail-item-label" style="color: var(--color-accent-2-700);">מחסנית</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(-4deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg><span class="rail-item-label" style="color: var(--color-accent-700);">תור</span></div>
+      <div class="rail-item"><svg viewBox="0 0 40 48" style="transform: rotate(6deg);"><path d="M8 4 H26 V12 A5 5 0 0 1 26 22 V26 A5 5 0 0 0 26 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-800)"/></svg><span class="rail-item-label" style="color: var(--color-accent-2-800);">רקורסיה</span></div>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="סיכום המונחים שגילינו">
+  <h2 class="slide-title">סיכום המונחים</h2>
+  <div class="recap-grid rise" style="gap: 14px;">
+        <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label">שרשרת<br>חוליות</span></div>
+      <p>הוספה והסרה של איברים </p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span class="rail-item-label">מחסנית</span></div>
+      <p>גישה ישירה לאיבר האחרון</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg><span class="rail-item-label">תור</span></div>
+      <p>גישה ישירה לאיבר הראשון</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-800)"/></svg><span class="rail-item-label">רקורסיה</span></div>
+      <p>פעולה שמזמנת את עצמה</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-3deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="color-mix(in srgb, var(--color-accent) 50%, var(--color-accent-2))"/></svg><span class="rail-item-label">עצים<br>בינאריים</span></div>
+      <p>חיפוש יעיל במעט צעדים.</p>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="סיכום המונחים - מלא" style="padding-top: 50px;">
+  <!--h2 class="slide-title">סיכום המונחים</h2-->
+  <div class="recap-grid compact rise">
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span class="rail-item-label">שרשרת<br>חוליות</span></div>
+      <p>הוספה והסרה של איברים </p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span class="rail-item-label">מחסנית</span></div>
+      <p>גישה ישירה לאיבר האחרון</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-4deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg><span class="rail-item-label">תור</span></div>
+      <p>גישה ישירה לאיבר הראשון</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(6deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-800)"/></svg><span class="rail-item-label">רקורסיה</span></div>
+      <p>פעולה שמזמנת את עצמה</p>
+    </div>
+    <div class="recap-row">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-3deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="color-mix(in srgb, var(--color-accent) 50%, var(--color-accent-2))"/></svg><span class="rail-item-label">עצים<br>בינאריים</span></div>
+      <p>חיפוש יעיל במעט צעדים</p>
+    </div>
+    <div class="recap-row" style="opacity: 0.5;">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(3deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-600)"/></svg><span class="rail-item-label">יעילות</span></div>
+      <p>איך מחשבים את יעילות התוכנה </p>
+    </div>
+    <div class="recap-row" style="opacity: 0.5;">
+      <div class="rail-item"><svg viewBox="0 0 46 48" style="transform: rotate(-5deg);"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-500)"/></svg><span class="rail-item-label">מימוש</span></div>
+      <p>איך ממשים מבנים בעצמנו</p>
+    </div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide divider" data-label="פרק">
+  <div class="rise"><div class="ghost-num">03</div><h2 class="slide-title">תוכנית הלימודים</h2></div>
+</section>
+
+<section class="slide content click-reveal" data-label="תוכנית הלימודים">
+  <h2 class="slide-title">תוכנית הלימודים</h2>
+  <table class="table rise">
+    <thead><tr><th>שאלון</th><th>כיתה</th><th>נושאים</th></tr></thead>
+    <tbody>
+      <tr><td>899371</td><td>י׳</td><td>יסודות מדעי המחשב</td></tr>
+      <tr>
+        <td>899271</td>
+        <td>י״א</td>
+        <td>
+          <div class="reveal-step" hidden>
+            <div style="display:flex; flex-direction:column; gap:20px; border-right: 2px solid var(--color-divider); padding-right: 18px;">
+              <span style="font-weight:600;">מבני נתונים</span>
+              <div class="reveal-step" hidden style="display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; gap:28px; padding-right: 24px; margin: 4px 0;">
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">שרשרת חוליות</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">מחסנית</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-700)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">תור</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-800)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">רקורסיה</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="color-mix(in srgb, var(--color-accent) 50%, var(--color-accent-2))"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">עצים בינאריים</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-600)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">יעילות</span></div>
+                <div style="display:flex; align-items:center; gap:12px; white-space:nowrap;"><svg viewBox="0 0 46 48" style="width:18px; height:19px; flex-shrink:0;"><path d="M8 4 H40 V12 A5 5 0 0 1 40 22 V26 A5 5 0 0 0 40 36 V44 H8 A4 4 0 0 1 4 40 V22 A5 5 0 0 0 4 12 V8 A4 4 0 0 1 8 4 Z" fill="var(--color-accent-2-500)"/></svg><span style="font-size: var(--type-small); color: var(--color-text);">מימוש</span></div>
+              </div>
+              <span style="font-weight:600;">תכנות מונחה עצמים</span>
+            </div>
+          </div>        
+      </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<button class="nav-btn nav-prev" id="prevBtn" aria-label="השקופית הקודמת">&lsaquo;</button>
+<button class="nav-btn nav-next" id="nextBtn" aria-label="השקופית הבאה">&rsaquo;</button>
+<div class="slide-counter" id="slideCounter" dir="ltr">1 / 21</div>
+</div>
+
+<script>
+(function () {
+  var slides = document.querySelectorAll('.slide');
+  var idx = 0;
+  function show(i) {
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach(function (s, n) { s.classList.toggle('active', n === idx); });
+    document.getElementById('slideCounter').textContent = (idx + 1) + ' / ' + slides.length;
+  }
+  document.getElementById('prevBtn').addEventListener('click', function () { if (document.body.classList.contains('zoom-active')) return; show(idx - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function () { if (document.body.classList.contains('zoom-active')) return; show(idx + 1); });
+  window.addEventListener('keydown', function (e) {
+    if (document.body.classList.contains('zoom-active')) {
+      if (e.key === 'Escape') document.querySelector('.code-block.zoomed').click();
+      return;
+    }
+    if (e.key === 'ArrowRight' || e.key === ' ') show(idx + 1);
+    if (e.key === 'ArrowLeft') show(idx - 1);
+  });
+  function scale() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', scale);
+  scale();
+  requestAnimationFrame(scale);
+  window.addEventListener('load', scale);
+  if (window.ResizeObserver) new ResizeObserver(scale).observe(document.body);
+  show(0);
+
+  document.querySelectorAll('.task-hint-btn').forEach(function (btn) {
+    var hint = btn.nextElementSibling;
+    if (!hint || !hint.classList.contains('task-hint')) return;
+    btn.addEventListener('click', function () {
+      var shown = hint.hidden;
+      hint.hidden = !shown;
+      btn.textContent = shown ? 'הסתרה' : 'רמז';
+    });
+  });
+
+  document.querySelectorAll('.code-block.full-program').forEach(function (block) {
+    var overlay = block.closest('.slide').querySelector('.zoom-overlay');
+    function toggle(e) {
+      if (e) e.stopPropagation();
+      block.classList.toggle('zoomed');
+      document.body.classList.toggle('zoom-active');
+      if (overlay) overlay.classList.toggle('active');
+    }
+    block.addEventListener('click', toggle);
+    if (overlay) overlay.addEventListener('click', toggle);
+  });
+
+  document.querySelectorAll('.click-reveal').forEach(function (slide) {
+    var steps = Array.prototype.slice.call(slide.querySelectorAll('.reveal-step'));
+    var stage = 0;
+    slide.addEventListener('click', function () {
+      if (stage >= steps.length) return;
+      steps[stage].hidden = false;
+      stage++;
+    });
+  });
+
+  document.querySelectorAll('.rail-slide').forEach(function (slide) {
+    var revealBtn = slide.querySelector('.rail-reveal-btn');
+    var revealBox = slide.querySelector('.rail-reveal');
+    var icon = slide.querySelector('.rail-icon');
+    var strip = slide.querySelector('.rail-strip');
+    var stage = 0;
+    function addToStrip() {
+      var label = revealBox.querySelector('.rail-icon-label').getAttribute('data-term');
+      var item = document.createElement('div');
+      item.className = 'rail-item';
+      item.innerHTML = icon.querySelector('svg').outerHTML + '<span class="rail-item-label">' + label + '</span>';
+      strip.appendChild(item);
+    }
+    revealBtn.addEventListener('click', function () {
+      revealBox.hidden = false;
+      revealBtn.hidden = true;
+      stage = 1;
+    });
+    icon.addEventListener('click', function () {
+      if (stage !== 1) return;
+      addToStrip();
+      stage = 2;
+      icon.style.cursor = 'default';
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
