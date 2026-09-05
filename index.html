@@ -966,6 +966,122 @@ class Program
   </table>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
+
+<section class="slide content" data-label="פתרון - תרגיל 1 חלק א">
+  <div class="zoom-overlay"></div>
+  <div class="code-block full-program rise" dir="ltr" style="margin: 0 auto; max-width: 1100px;">static void Exercise1PartA()
+{
+    string[] colors = { "Red", "Blue", "Green", "Yellow" };
+    string[] newColors = new string[colors.Length + 2];
+    for (int i = 0; i &lt; colors.Length; i++)
+    {
+        newColors[i] = colors[i];
+    }
+    newColors[colors.Length] = "Pink";
+    newColors[colors.Length + 1] = "Orange";
+    for (int i = 0; i &lt; newColors.Length; i++)
+    {
+        Console.WriteLine(newColors[i]);
+    }
+}</div>
+  <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="פתרון - תרגיל 2 חלק א">
+  <div class="zoom-overlay"></div>
+  <div class="code-block full-program rise" dir="ltr" style="margin: 0 auto; max-width: 1100px;">static void Exercise2PartA()
+{
+    Random rnd = new Random();
+    int length = rnd.Next(10, 101);
+    int[] numbers = new int[length];
+    for (int i = 0; i &lt; length; i++)
+    {
+        numbers[i] = rnd.Next(1, 1001);
+        Console.Write(numbers[i] + "  ");
+    }
+    Console.WriteLine();
+    for (int i = numbers.Length - 1; i &gt;= numbers.Length - 10; i--)
+    {
+        Console.WriteLine(numbers[i]);
+    }
+}</div>
+  <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="פתרון - תרגיל 3 חלק א">
+  <div class="zoom-overlay"></div>
+  <div class="code-block full-program rise" dir="ltr" style="margin: 0 auto; max-width: 1100px;">static void Exercise3PartA()
+{
+    string[] busLine = { "Yossi", "Noa", "Dana", "Tom", "Roni", "Maya", "Ori", "Lior", "Adi", "Ben" };
+    int vacant = 5;
+    for (int i = 0; i &lt; vacant; i++)
+    {
+        busLine[i] = busLine[vacant + i];
+        busLine[vacant + i] = null;
+    }
+    string[] newArrivals = { "Shira", "Guy", "Tal" };
+    for (int i = 0; i &lt; newArrivals.Length; i++)
+    {
+        busLine[vacant + i] = newArrivals[i];
+    }
+    for (int i = 0; i &lt; busLine.Length; i++)
+    {
+        if (busLine[i] != null)
+        {
+            Console.WriteLine(busLine[i]);
+        }
+    }
+}</div>
+  <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="פתרון - תרגיל 4 חלק א">
+  <div class="zoom-overlay"></div>
+  <div class="code-block full-program rise" dir="ltr" style="margin: 0 auto; max-width: 1100px;">static void Exercise4PartA()
+{
+    Console.Write("Enter a number between 5-10: ");
+    int number = int.Parse(Console.ReadLine());
+    int result = 1;
+    for (int i = 1; i &lt;= number; i++)
+    {
+        result = result * i;
+    }
+
+    Console.WriteLine(result);
+}</div>
+  <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
+<section class="slide content" data-label="פתרון - תרגיל 5 חלק א">
+  <div class="zoom-overlay"></div>
+  <div class="code-block full-program rise" dir="ltr" style="margin: 0 auto; max-width: 1100px;">static void Exercise5PartA()
+{
+    int[] numbers = { 3, 8, 15, 22, 29, 34, 41, 47, 53, 61, 68, 74, 79, 85, 91, 97 };
+    Random rnd = new Random();
+    int number = rnd.Next(1, 101);
+    int count = 0;
+    bool found = false;
+    while (!found &amp;&amp; count &lt; 16)
+    {
+        if (numbers[count] == number)
+        {
+            found = true;
+        }
+        count++;
+    }
+    Console.WriteLine("Looking for: " + number);
+    if (!found)
+        Console.Write("Not ");
+    Console.WriteLine("Found");
+    Console.WriteLine("Checks: " + count);
+}</div>
+  <p class="zoom-hint">לחצו על הקוד להגדלה</p>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
 <button class="nav-btn nav-prev" id="prevBtn" aria-label="השקופית הקודמת">&lsaquo;</button>
 <button class="nav-btn nav-next" id="nextBtn" aria-label="השקופית הבאה">&rsaquo;</button>
 <div class="slide-counter" id="slideCounter" dir="ltr">1 / 21</div>
